@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {GoogleApiWrapper} from 'google-maps-react';
 import Map from './Map.js'
 import logo from './logo.svg';
 import './App.css';
@@ -7,7 +8,6 @@ class App extends Component {
 
 
     render() {
-        const google = window.google;
 
         return (
         <div className="App">
@@ -22,11 +22,16 @@ class App extends Component {
                 </div>
             </section>
             <section className="map-window">
-                    <Map google={ google } />
+                <div>
+                    <Map google={this.props.google} />
+                </div>
             </section>
         </div>
         );
     }
 }
 
-export default App
+export default GoogleApiWrapper({
+    apiKey: 'AIzaSyCChB_hbF67MQWbbw44sjHvv0qgPaERIuQ'
+    //libraries: ['visualization']
+  })(App)
