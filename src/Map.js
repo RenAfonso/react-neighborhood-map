@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+/* import Museums from './Museums' */
 import ReactDOM from 'react-dom';
 //import PropTypes from 'prop-types';
 
-class Map extends Component {
+class MapContainer extends Component {
     
-    componentDidUpdate() {
-        this.initMap(); // call loadMap function to load the google map
-      }
-    
-      initMap() {
-        if (this.props && this.props.google) { // checks to make sure that props have been passed
-          const {google} = this.props; // sets props equal to google
-          const maps = google.maps; // sets maps to google maps props
-    
-          const mapRef = this.refs.map; // looks for HTML div ref 'map'. Returned in render below.
-          const node = ReactDOM.findDOMNode(mapRef); // finds the 'map' div in the React DOM, names it node
-    
-          const mapConfig = Object.assign({}, {
-            center: {lat: 40.7485722, lng: -74.0068633}, // sets center of google map to NYC.
-            zoom: 11 // sets zoom. Lower numbers are zoomed further out.
-          })
-    
-          this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
-    
-        }
-      }
-    
-      render() {
-        const style = { // MUST specify dimensions of the Google map or it will not work. Also works best when style is specified inside the render function and created as an object
-          width: '90vw', // 90vw basically means take up 90% of the width screen. px also works.
-          height: '300px' // 75vh similarly will take up roughly 75% of the height of the screen. px also works.
-        }
-    
-        return ( // in our return function you must return a div with ref='map' and style.
-          <div ref="map" style={style}>
-            loading map...
-          </div>
+    render() { 
+        
+        return (
+            <Map 
+            google={this.props.google}
+            style={{width: '50%', height: '50%', position: 'relative'}}
+            zoom={14}
+            initialCenter={{
+            lat : 38.7222524,
+            lng : -9.1393366
+            }}>
+                <Marker
+                    title={'The marker`s title will appear as a tooltip.'}
+                    name={'Museu João de Deus'}
+                    position={{lat: 38.7158734, lng: -9.1583819}} />
+                <Marker
+                    name={'Dolores park'}
+                    position={{lat: 37.759703, lng: -122.428093}} />
+                <Marker
+                    name={'Your position'}
+                    position={{lat: 37.762391, lng: -122.439192}} />
+            </Map>
         )
-      }
+    }
 }
 
-export default Map
+export default MapContainer

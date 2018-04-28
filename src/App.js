@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import {GoogleApiWrapper} from 'google-maps-react';
-import Map from './Map.js'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+import MapContainer from './Map'
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
 
+    componentDidMount() {
+
+        fetch(`https://services.arcgis.com/1dSrzEWVQn5kHHyK/arcgis/rest/services/POICultura/FeatureServer/3/query?where=1%3D1&outFields=*&f=pgeojson`)
+            .then(response => response.json())
+            .then(display);
+
+        function display(data) {
+            console.log(data);
+        }
+    }
 
     render() {
 
@@ -23,7 +33,7 @@ class App extends Component {
             </section>
             <section className="map-window">
                 <div>
-                    <Map google={this.props.google} />
+                    <MapContainer google={this.props.google} />
                 </div>
             </section>
         </div>
