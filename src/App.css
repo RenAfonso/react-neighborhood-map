@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .App-logo {
@@ -27,6 +30,25 @@
   to { transform: rotate(360deg); }
 }
 
-#map {
-    width: 50%;
+.App-header {
+    width: 100%;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.sidebar {
+    width: 35%;
+}
+
+.map-window {
+    width: 65%;
+    height: 100%;
+}
+
+#map:first-child {
+    width: 65%
 }

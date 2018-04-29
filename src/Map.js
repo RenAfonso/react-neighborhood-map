@@ -8,18 +8,19 @@ class MapContainer extends Component {
     
     render() {
 
-        const { google, museums } = this.props;
+        const { google, showingMuseums } = this.props;
         
         return (
             <Map 
+            className="map"
             google={google}
-            style={{width: '90%', height: '50%', position: 'relative'}}
-            zoom={14}
+            containerStyle={{width: '100%', height: '100vh', position: 'relative'}}
+            zoom={12}
             initialCenter={{
             lat : 38.7222524,
             lng : -9.1393366
             }}>
-                {museums.map((museum, index) => 
+                {showingMuseums.map((museum, index) => 
                     <Marker
                     key={ museum.id }
                     name={ museum.name }
