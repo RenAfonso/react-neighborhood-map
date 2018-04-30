@@ -42,9 +42,9 @@ class App extends Component {
         let showingMuseums;
         if (this.state.query) {
             const match = new RegExp(escapeRegExp(this.state.query), 'i')
-            showingMuseums = this.state.museums.filter((museum) => match.test(museum.name))
+            showingMuseums = this.state.museums.filter((museum) => match.test(museum.name));
         } else {
-            showingMuseums = this.state.museums
+            showingMuseums = this.state.museums;
         }
 
         showingMuseums.sort(sortBy('name'));

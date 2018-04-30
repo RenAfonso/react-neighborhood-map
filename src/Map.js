@@ -22,8 +22,7 @@ class MapContainer extends Component {
     onMapClicked = (props) => {
         if (this.state.showingInfoWindow) {
             this.setState({
-                showingInfoWindow: false,
-                activeMarker: null
+                showingInfoWindow: false
             })
         }
     };
@@ -49,17 +48,16 @@ class MapContainer extends Component {
                     name={ museum.name }
                     location={ museum.location.address}
                     position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
-                    onClick={this.onMarkerClick}>
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
-                            <div>
-                                <h1>{this.props.name}</h1>
-                                <p>{this.props.location}</p>
-                            </div>
-                    </InfoWindow>
-                    </Marker>
-                )}
+                    onClick={this.onMarkerClick}/>
+                    )}
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showingInfoWindow}>
+                        <div>
+                            <h3>{this.state.activeMarker.name}</h3>
+                            <p>{this.state.activeMarker.location}</p>
+                        </div>
+                </InfoWindow>
             </Map>
         )
     }

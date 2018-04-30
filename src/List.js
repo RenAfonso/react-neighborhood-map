@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
-/* import Museums from './Museums' */
 import ReactDOM from 'react-dom';
 //import PropTypes from 'prop-types';
 
 class List extends Component {
+
+    componentDidMount() {
+
+        const itemList = document.getElementsByTagName('li');
+
+        itemList.addEventListener('click', function(event) {
+            
+        })
+
+    }
 
     render() {
 
