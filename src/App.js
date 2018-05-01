@@ -12,13 +12,18 @@ class App extends Component {
 
     state = {
         museums: [],
-        teststring: 'a fucking string',
-        query: ''
+        teststring: 'a string',
+        query: '',
+       /*  museumName: '' */ //UNCOMMENT THIS AND TOGGLEWINDOW FUNCTION
     }
 
     componentDidMount() {
         this.getMuseums();
     }
+
+    /* toggleWindow() {
+        this.setState({ museumName: List.name })
+    } */
 
     getMuseums() {
         fetch(`https://api.foursquare.com/v2/venues/search?ll=38.7222524,-9.1393366&client_id=DKAUJUD2JV421KQCJENSDWHWBVALP1QWWMF3KKKP1CDWPPKE&client_secret=FBBD413XCHSBJFX5D2DWZUTVYBVOOWLSVM3G3SWEOJQPRA35&v=20180323&categoryId=4bf58dd8d48988d181941735&radius=6000&limit=50`)
@@ -31,7 +36,7 @@ class App extends Component {
                     console.log(this.state.museums);
                 })}
             )
-        }
+    }
 
     updateQuery = (query) => {
         this.setState({ query: query.trim() })
@@ -64,7 +69,7 @@ class App extends Component {
                         placeholder="Search" 
                         value={this.state.query} 
                         onChange={(event) => this.updateQuery(event.target.value)}/>
-                        <List google={this.props.google} showingMuseums={showingMuseums} />
+                        <List google={this.props.google} showingMuseums={showingMuseums} toggleWindow={this.toggleWindow} />
                     </div>
                 </section>
                 <section className="map-window">
