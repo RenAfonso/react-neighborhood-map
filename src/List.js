@@ -5,10 +5,6 @@ import ReactDOM from 'react-dom';
 
 class List extends Component {
 
-    state = {
-        museumName: ''
-    } //COMMENT 
-    
     getMuseumName = (event) => {
         let text = event.target.name;
         this.props.onClick(this.props.id)
@@ -16,7 +12,7 @@ class List extends Component {
 
     render() {
 
-        const { google, showingMuseums, toggleWindow, name } = this.props;
+        const { google, showingMuseums, getClass, name } = this.props;
 
         return(
             <ol className="museums-list" >
@@ -24,9 +20,9 @@ class List extends Component {
                     <li 
                     key={ '.$' + museum.id } 
                     name={ museum.name } 
-                    onClick={ () => this.setState({
+                    onClick={ /* () => this.setState({
                         museumName: museum.name
-                    }) /* toggleWindow(this.name) */ }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
+                    }) */ getClass.bind(this) }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
                 )}
             </ol>
         )
