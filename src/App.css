@@ -11,14 +11,14 @@
   height: 12vh;
   margin: 0;
   color: white;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 48px auto 48px;
   align-items: center;
 }
 
 .app-title {
-  font-size: 30px;
+  font-size: 20px;
+  letter-spacing: 2px;
 }
 
 .app-header {
@@ -26,20 +26,32 @@
 }
 
 .app-search {
-    display: none;
+    font-size: 20px
 }
 
 .main {
     width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
+    display: block;
 }
 
 .sidebar {
-    width: 30%;
+    width: 500px;
     height: 84vh;
     overflow-y: scroll;
     overflow-x: hidden;
+    background-color: #eee;
+    position: fixed;
+    z-index: 1;
+}
+
+.open  {
+    left: 0;
+    transition: linear 0.2s;
+}
+
+.close {
+    left: -500px;
+    transition: linear 0.2s;
 }
 
 .search-text {
@@ -57,6 +69,7 @@
 
 .museums-list-item {
     border-bottom: solid 1px #000;
+    font-size: 12px;
     padding: 8px 0 8px 16px;
     margin: 0;
     background-color: #eee;
@@ -64,6 +77,13 @@
 
 .museums-list-item:hover {
     cursor: pointer;
+    background-color: #444;
+    color: #fff;
+}
+
+.select {
+    background-color: #000;
+    color: #fff;
 }
 
 .museums-list-item:first-of-type {
@@ -71,14 +91,8 @@
 }
 
 .map-window {
-    width: 70%;
     height: 100%;
-}
-
-.map {
-    width: 70%;
-    height: 100%;
-    position: relative;
+    width: 100%;
 }
 
 .footer {
@@ -93,8 +107,75 @@
 
 .footer-text {
     color: #fff;
+    font-size: 12px;
 }
 
 .footer-logo {
     height: 3vh;
+}
+
+@media screen and (min-width: 600px) {
+    
+    .app-header {
+        grid-template-columns: auto;
+    }
+
+    .app-title {
+        font-size: 26px;
+        letter-spacing: 3px;
+    }
+
+    .app-search {
+        display: none;
+    }
+
+    .main {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .sidebar {
+        width: 35%;
+        z-index: 0;
+    }
+
+    .close {
+        left: 0;
+        position: relative;
+    }
+
+    .select {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .map-window {
+        width: calc(65% - 1px);
+        z-index: 0;
+    }
+
+    .map {
+        border-left: solid 1px #000;
+    }
+
+}
+
+@media screen and (min-width: 800px) {
+
+    .museums-list-item {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .app-title {
+        font-size: 28px;
+        letter-spacing: 4px;
+    }
+
+    .museums-list-item {
+        font-size: 16px;
+    }
 }

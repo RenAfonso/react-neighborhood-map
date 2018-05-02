@@ -10,9 +10,17 @@ class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
+
     };
 
     onMarkerClick = (props, marker, e) =>
+        this.setState({
+            selectedPlace: props,
+            activeMarker: marker,
+            showingInfoWindow: true
+    });
+
+    onListClick = (props, marker, e) =>
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -29,7 +37,7 @@ class MapContainer extends Component {
 
     render() {
 
-        const { google, showingMuseums } = this.props;
+        const { google, showingMuseums, museumName } = this.props;      
         
         return (
             <Map 
@@ -46,10 +54,12 @@ class MapContainer extends Component {
                 {showingMuseums.map((museum, index) => 
                     <Marker
                     key={ museum.id }
+                    id={ museum.name }
                     title={ museum.name }
                     location={ museum.location.address}
                     position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
-                    onClick={this.onMarkerClick}/>
+                    onClick={this.onMarkerClick}
+                    onListClick={this.onListClick}/>
                     )}
                 <InfoWindow
                     marker={this.state.activeMarker}

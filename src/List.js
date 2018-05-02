@@ -23,7 +23,7 @@ class List extends Component {
                     name={ museum.name } 
                     onClick={ /* () => this.setState({
                         museumName: museum.name
-                    }) */ getClass.bind(this) }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
+                    }) */ getClass }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
                 )}
             </ol>
         )

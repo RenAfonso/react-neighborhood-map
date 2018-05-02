@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-//import * as FourSquareAPI from './FourSquareAPI'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
 import MapContainer from './Map'
 import List from './List'
 import lisbonlogo from './lisbonlogo.svg'
@@ -15,17 +17,21 @@ class App extends Component {
         museums: [],
         teststring: 'a string',
         query: '',
-        museumName: '' //UNCOMMENT THIS AND TOGGLEWINDOW FUNCTION
+        museumName: '',
+        sidebarVisible: false
     }
 
     componentDidMount() {
         this.getMuseums();
     }
 
-    getClass(event) {
+    getClass = (event) => {
         //console.log(event.target.getAttribute('class'));
         let listName = event.target.getAttribute('name');
-        console.log(listName + ' ' + this.state);
+        this.setState({
+            museumName: listName
+        });
+        //console.log(listName + ' ' + this.state.teststring);
         //return listName;
     }
 
@@ -46,7 +52,29 @@ class App extends Component {
         this.setState({ query: query.trim() })
     }
 
+    toggleSidebar = (sidebarVisible) => {
+        if (this.state.sidebarVisible) {
+            this.setState({
+                sidebarVisible: false
+            });
+        } else {
+            this.setState({
+                sidebarVisible: true
+            });
+        }
+    }
+
+    hideSidebar = (sidebarVisible) => {
+        if (this.state.sidebarVisible) {
+            this.setState({
+                sidebarVisible: false
+            })
+        }
+    }
+
     render() {
+
+        const { sidebarVisible } = this.state;
 
         let showingMuseums;
         if (this.state.query) {
@@ -61,13 +89,18 @@ class App extends Component {
         return (
         <div className="app">
             <header className="app-header">
-                <div className="app-search">
-                    <i className="fas fa-search"></i>
+                <div
+                className="app-search" 
+                id="app-search"
+                onClick={this.toggleSidebar}>
+                    <FontAwesomeIcon icon={ sidebarVisible ? faArrowLeft : faSearch }/>
                 </div>
                 <h1 className="app-title">Lisbon Museums</h1>
             </header>
             <main className="main">
-                <section className="sidebar">
+                <section 
+                className={ sidebarVisible ? "sidebar open" : "sidebar close" }
+                id="sidebar">
                     <div className="searchbar">
                         <input 
                         className="search-text" 
@@ -80,7 +113,7 @@ class App extends Component {
                 </section>
                 <section className="map-window">
                     <div>
-                        <MapContainer google={this.props.google} showingMuseums={showingMuseums} />
+                        <MapContainer google={this.props.google} showingMuseums={showingMuseums} museumName={this.state.museumName} />
                     </div>
                 </section>
             </main>
