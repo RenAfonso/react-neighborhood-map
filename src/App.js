@@ -18,7 +18,8 @@ class App extends Component {
         teststring: 'a string',
         query: '',
         museumName: '',
-        sidebarVisible: false
+        sidebarVisible: false,
+        foursquareError: false
     }
 
     componentDidMount() {
@@ -26,19 +27,21 @@ class App extends Component {
     }
 
     getClass = (event) => {
-        //console.log(event.target.getAttribute('class'));
         let listName = event.target.getAttribute('name');
         this.setState({
             museumName: listName
         });
-        //console.log(listName + ' ' + this.state.teststring);
-        //return listName;
     }
 
     getMuseums() {
         fetch(`https://api.foursquare.com/v2/venues/search?ll=38.7222524,-9.1393366&client_id=DKAUJUD2JV421KQCJENSDWHWBVALP1QWWMF3KKKP1CDWPPKE&client_secret=FBBD413XCHSBJFX5D2DWZUTVYBVOOWLSVM3G3SWEOJQPRA35&v=20180323&categoryId=4bf58dd8d48988d181941735&radius=6000&limit=50`)
         .then(response => response.json())
         .then(data => data.response.venues)
+        .catch(err => {
+            this.setState({
+                foursquareError: true
+            })
+        })
             .then(museums => {
                 this.setState({
                     museums: museums
@@ -46,6 +49,7 @@ class App extends Component {
                     console.log(this.state.museums);
                 })}
             )
+            
     }
 
     updateQuery = (query) => {
@@ -84,7 +88,9 @@ class App extends Component {
             showingMuseums = this.state.museums;
         }
 
-        showingMuseums.sort(sortBy('name'));
+        if (showingMuseums instanceof Array) {
+            showingMuseums.sort(sortBy('name'));
+        }
 
         return (
         <div className="app">
@@ -108,18 +114,18 @@ class App extends Component {
                         placeholder="Search" 
                         value={this.state.query} 
                         onChange={(event) => this.updateQuery(event.target.value)}/>
-                        <List google={this.props.google} showingMuseums={showingMuseums} getClass={this.getClass} />
+                        <List google={this.props.google} showingMuseums={showingMuseums} getClass={this.getClass} foursquareError={this.state.foursquareError} />
                     </div>
                 </section>
                 <section className="map-window">
                     <div>
-                        <MapContainer google={this.props.google} showingMuseums={showingMuseums} museumName={this.state.museumName} />
+                        <MapContainer google={this.props.google} showingMuseums={showingMuseums} museumName={this.state.museumName} foursquareError={this.state.foursquareError} />
                     </div>
                 </section>
             </main>
             <footer className="footer">
                 <p className="footer-text">Lisbon Museums is powered by Foursquare</p>
-                <img src={foursquare} className="footer-logo" alt="This app is powered by foursquare" />
+                <img src={foursquare} className="footer-logo" alt="Foursquare logo" />
             </footer>
         </div>
         );

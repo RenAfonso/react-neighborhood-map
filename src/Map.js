@@ -37,7 +37,7 @@ class MapContainer extends Component {
 
     render() {
 
-        const { google, showingMuseums, museumName } = this.props;      
+        const { google, showingMuseums, museumName, foursquareError } = this.props;      
         
         return (
             <Map 
@@ -51,7 +51,7 @@ class MapContainer extends Component {
             lng : -9.1393366
             }}
             onClick={this.onMapClicked}>
-                {showingMuseums.map((museum, index) => 
+                {(showingMuseums instanceof Array) ? (showingMuseums.map((museum, index) => 
                     <Marker
                     key={ museum.id }
                     id={ museum.name }
@@ -60,7 +60,7 @@ class MapContainer extends Component {
                     position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
                     onClick={this.onMarkerClick}
                     onListClick={this.onListClick}/>
-                    )}
+                    )) : console.log('Foursquare data missing. Markers not loaded') }
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
