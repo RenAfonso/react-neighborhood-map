@@ -18,7 +18,8 @@ class List extends Component {
             <ol className="museums-list" >
                 {showingMuseums.map((museum, index) => 
                     <li 
-                    key={ '.$' + museum.id } 
+                    key={ '.$' + museum.id }
+                    className="museums-list-item"
                     name={ museum.name } 
                     onClick={ /* () => this.setState({
                         museumName: museum.name

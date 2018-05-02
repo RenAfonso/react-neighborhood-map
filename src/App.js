@@ -5,7 +5,8 @@ import sortBy from 'sort-by'
 //import * as FourSquareAPI from './FourSquareAPI'
 import MapContainer from './Map'
 import List from './List'
-import logo from './logo.svg';
+import lisbonlogo from './lisbonlogo.svg'
+import foursquare from './foursquare.svg'
 import './App.css';
 
 class App extends Component {
@@ -58,10 +59,12 @@ class App extends Component {
         showingMuseums.sort(sortBy('name'));
 
         return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to React</h1>
+        <div className="app">
+            <header className="app-header">
+                <div className="app-search">
+                    <i className="fas fa-search"></i>
+                </div>
+                <h1 className="app-title">Lisbon Museums</h1>
             </header>
             <main className="main">
                 <section className="sidebar">
@@ -81,6 +84,10 @@ class App extends Component {
                     </div>
                 </section>
             </main>
+            <footer className="footer">
+                <p className="footer-text">Lisbon Museums is powered by Foursquare</p>
+                <img src={foursquare} className="footer-logo" alt="This app is powered by foursquare" />
+            </footer>
         </div>
         );
     }
