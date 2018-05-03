@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+import React, { Component } from 'react'
+import {GoogleApiWrapper} from 'google-maps-react'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -7,7 +7,6 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
 import MapContainer from './Map'
 import List from './List'
-import lisbonlogo from './lisbonlogo.svg'
 import foursquare from './foursquare.svg'
 import './App.css';
 
@@ -19,7 +18,8 @@ class App extends Component {
         query: '',
         museumName: '',
         sidebarVisible: false,
-        foursquareError: false
+        foursquareError: false,
+        mapCenter: {}
     }
 
     componentDidMount() {
@@ -29,7 +29,7 @@ class App extends Component {
     getClass = (event) => {
         let listName = event.target.getAttribute('name');
         this.setState({
-            museumName: listName
+            museumName: listName,
         });
     }
 
@@ -45,8 +45,6 @@ class App extends Component {
             .then(museums => {
                 this.setState({
                     museums: museums
-                }, function () {
-                    console.log(this.state.museums);
                 })}
             )
             
@@ -68,12 +66,10 @@ class App extends Component {
         }
     }
 
-    hideSidebar = (sidebarVisible) => {
-        if (this.state.sidebarVisible) {
-            this.setState({
-                sidebarVisible: false
-            })
-        }
+    updateMarker() {
+        this.setState({
+            museumName: ''
+        })
     }
 
     render() {
@@ -92,6 +88,11 @@ class App extends Component {
             showingMuseums.sort(sortBy('name'));
         }
 
+        let clickedMuseum;
+        if (this.state.museumName) {
+            clickedMuseum = showingMuseums.filter((museum) => (museum.name === this.state.museumName));
+        }
+
         return (
         <div className="app">
             <header className="app-header">
@@ -101,7 +102,7 @@ class App extends Component {
                 onClick={this.toggleSidebar}>
                     <FontAwesomeIcon icon={ sidebarVisible ? faArrowLeft : faSearch }/>
                 </div>
-                <h1 className="app-title">Lisbon Museums</h1>
+                <h1 className="app-title" onClick={() => this.updateMarker()}>Lisbon Museums</h1>
             </header>
             <main className="main">
                 <section 
@@ -112,14 +113,24 @@ class App extends Component {
                         className="search-text" 
                         type="text" 
                         placeholder="Search" 
-                        value={this.state.query} 
+                        value={this.state.query}
+                        onClick={() => this.updateMarker()}
                         onChange={(event) => this.updateQuery(event.target.value)}/>
-                        <List google={this.props.google} showingMuseums={showingMuseums} getClass={this.getClass} foursquareError={this.state.foursquareError} />
+                        <List 
+                        google={this.props.google} 
+                        showingMuseums={showingMuseums} 
+                        museumName={this.state.museumName}
+                        getClass={this.getClass} 
+                        foursquareError={this.state.foursquareError} />
                     </div>
                 </section>
                 <section className="map-window">
                     <div>
-                        <MapContainer google={this.props.google} showingMuseums={showingMuseums} museumName={this.state.museumName} foursquareError={this.state.foursquareError} />
+                        <MapContainer 
+                        google={this.props.google} 
+                        showingMuseums={showingMuseums} 
+                        clickedMuseum={clickedMuseum}
+                        foursquareError={this.state.foursquareError} />
                     </div>
                 </section>
             </main>

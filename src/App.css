@@ -81,7 +81,7 @@
     color: #fff;
 }
 
-.select {
+.selected {
     background-color: #000;
     color: #fff;
 }
@@ -123,6 +123,10 @@
     .app-title {
         font-size: 26px;
         letter-spacing: 3px;
+    }
+
+    .app-title:hover {
+        cursor: pointer;
     }
 
     .app-search {

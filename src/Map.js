@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+import {Map, InfoWindow, Marker} from 'google-maps-react'
 import { mapStyles } from './mapStyles';
-import ReactDOM from 'react-dom';
 //import PropTypes from 'prop-types';
 
 class MapContainer extends Component {
@@ -10,7 +9,6 @@ class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
-
     };
 
     onMarkerClick = (props, marker, e) =>
@@ -37,7 +35,7 @@ class MapContainer extends Component {
 
     render() {
 
-        const { google, showingMuseums, museumName, foursquareError } = this.props;      
+        const { google, showingMuseums, clickedMuseum, foursquareError } = this.props;      
         
         return (
             <Map 
@@ -45,22 +43,28 @@ class MapContainer extends Component {
             google={ google }
             containerStyle={ {width: '100%', height: '84vh', position: 'relative'} }
             styles={ mapStyles }
-            zoom={13}
+            zoom={12}
             initialCenter={{
             lat : 38.7222524,
             lng : -9.1393366
             }}
             onClick={this.onMapClicked}>
-                {(showingMuseums instanceof Array) ? (showingMuseums.map((museum, index) => 
-                    <Marker
-                    key={ museum.id }
-                    id={ museum.name }
-                    title={ museum.name }
-                    location={ museum.location.address}
-                    position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
-                    onClick={this.onMarkerClick}
-                    onListClick={this.onListClick}/>
-                    )) : console.log('Foursquare data missing. Markers not loaded') }
+                {(clickedMuseum) ? 
+                    (<Marker
+                    key={ clickedMuseum[0].id }
+                    title={ clickedMuseum[0].name }
+                    location={ clickedMuseum[0].location.address}
+                    position={{lat: `${clickedMuseum[0].location.lat}`, lng: `${clickedMuseum[0].location.lng}`}}
+                    onClick={this.onMarkerClick}/>) :
+                    ((!foursquareError) ? (showingMuseums.map((museum, index) => 
+                        <Marker
+                        key={ museum.id }
+                        title={ museum.name }
+                        location={ museum.location.address}
+                        position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
+                        onClick={this.onMarkerClick}/>
+                        )) : console.log('Foursquare data missing. Markers not loaded'))
+                }
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
