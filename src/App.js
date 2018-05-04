@@ -26,7 +26,7 @@ class App extends Component {
         this.getMuseums();
     }
 
-    getClass = (event) => {
+    getName = (event) => {
         let listName = event.target.getAttribute('name');
         this.setState({
             museumName: listName,
@@ -120,7 +120,7 @@ class App extends Component {
                         google={this.props.google} 
                         showingMuseums={showingMuseums} 
                         museumName={this.state.museumName}
-                        getClass={this.getClass} 
+                        getName={this.getName} 
                         foursquareError={this.state.foursquareError} />
                     </div>
                 </section>

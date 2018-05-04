@@ -8,17 +8,10 @@ class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker: {},
-        selectedPlace: {},
+        selectedPlace: {}
     };
 
     onMarkerClick = (props, marker, e) =>
-        this.setState({
-            selectedPlace: props,
-            activeMarker: marker,
-            showingInfoWindow: true
-    });
-
-    onListClick = (props, marker, e) =>
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -33,9 +26,10 @@ class MapContainer extends Component {
         }
     };
 
+
     render() {
 
-        const { google, showingMuseums, clickedMuseum, foursquareError } = this.props;      
+        const { google, showingMuseums, clickedMuseum, foursquareError } = this.props;
         
         return (
             <Map 
@@ -67,10 +61,9 @@ class MapContainer extends Component {
                 }
                 <InfoWindow
                     marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    className="infoWindow">
+                    visible={this.state.showingInfoWindow}>
                         <div>
-                            <h3>{this.state.activeMarker.title}</h3>
+                            <h4>{this.state.activeMarker.title}</h4>
                             <p>{this.state.activeMarker.location}</p>
                         </div>
                 </InfoWindow>

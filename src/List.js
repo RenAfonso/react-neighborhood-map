@@ -5,7 +5,7 @@ class List extends Component {
 
     render() {
 
-        const { showingMuseums, getClass, foursquareError, museumName } = this.props;
+        const { showingMuseums, getName, foursquareError, museumName } = this.props;
 
         return(
             <ol className="museums-list" >
@@ -14,7 +14,7 @@ class List extends Component {
                     key={ '.$' + museum.id }
                     className={ (museumName === museum.name) ? "museums-list-item selected" : "museums-list-item"}
                     name={ museum.name }
-                    onClick={ getClass }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
+                    onClick={ getName }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
                 )) : (
                     <li 
                     className="museums-list-item"
