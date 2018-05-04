@@ -5,7 +5,7 @@ class List extends Component {
 
     render() {
 
-        const { showingMuseums, getName, foursquareError, museumName } = this.props;
+        const { showingMuseums, getName, foursquareError, museumName, sidebarVisible } = this.props;
 
         return(
             <ol className="museums-list" >
@@ -13,11 +13,13 @@ class List extends Component {
                     <li 
                     key={ '.$' + museum.id }
                     className={ (museumName === museum.name) ? "museums-list-item selected" : "museums-list-item"}
+                    tabIndex="1"
                     name={ museum.name }
                     onClick={ getName }> {museum.name} </li> //REPLACE THE FUNCTION FOR THE COMMENT
                 )) : (
                     <li 
                     className="museums-list-item"
+                    tabIndex="1"
                     name="error loading the database"> Unable to load Foursquare data. Please try again... </li> //REPLACE THE FUNCTION FOR THE COMMENT
                 )}
             </ol>

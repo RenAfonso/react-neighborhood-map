@@ -41,16 +41,18 @@
     overflow-x: hidden;
     background-color: #eee;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
 }
 
 .open  {
     left: 0;
+    visibility: visible;
     transition: linear 0.2s;
 }
 
 .close {
     left: -500px;
+    visibility: hidden;
     transition: linear 0.2s;
 }
 
@@ -93,6 +95,25 @@
 .map-window {
     height: 100%;
     width: 100%;
+}
+
+.list-info {
+    bottom: -20vh;
+    z-index: 2;
+    width: 300px;
+    height: 20vh;
+    font-size: 12px;
+    transition: linear 0.2s;
+    position: fixed;
+    background-color: #fff;
+    opacity: 0.8;
+    border: solid 1px black;
+    text-align: center;
+}
+
+.display {
+    bottom: 4vh;
+    transition: linear 0.2s;
 }
 
 .footer {
@@ -144,8 +165,10 @@
         z-index: 0;
     }
 
-    .close {
+    .open,
+    .close  {
         left: 0;
+        visibility: visible;
         position: relative;
     }
 

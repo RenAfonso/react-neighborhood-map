@@ -7,6 +7,7 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
 import MapContainer from './Map'
 import List from './List'
+import Info from './Info'
 import foursquare from './foursquare.svg'
 import './App.css';
 
@@ -90,7 +91,7 @@ class App extends Component {
 
         let clickedMuseum;
         if (this.state.museumName) {
-            clickedMuseum = showingMuseums.filter((museum) => (museum.name === this.state.museumName));
+            clickedMuseum = showingMuseums.filter((museum) => (museum.name === this.state.museumName));            
         }
 
         return (
@@ -99,10 +100,12 @@ class App extends Component {
                 <div
                 className="app-search" 
                 id="app-search"
+                tabIndex="1"
+                aria-label={ sidebarVisible ? "back arrow" : "search icon" }
                 onClick={this.toggleSidebar}>
                     <FontAwesomeIcon icon={ sidebarVisible ? faArrowLeft : faSearch }/>
                 </div>
-                <h1 className="app-title" onClick={() => this.updateMarker()}>Lisbon Museums</h1>
+                <h1 className="app-title" tabIndex="-1">Lisbon Museums</h1>
             </header>
             <main className="main">
                 <section 
@@ -112,25 +115,29 @@ class App extends Component {
                         <input 
                         className="search-text" 
                         type="text" 
-                        placeholder="Search" 
-                        value={this.state.query}
-                        onClick={() => this.updateMarker()}
-                        onChange={(event) => this.updateQuery(event.target.value)}/>
+                        placeholder="Search by museum name"
+                        tabIndex="1"
+                        value={ this.state.query }
+                        onClick={ () => this.updateMarker() }
+                        onChange={ (event) => this.updateQuery(event.target.value) }/>
                         <List 
-                        google={this.props.google} 
-                        showingMuseums={showingMuseums} 
-                        museumName={this.state.museumName}
-                        getName={this.getName} 
-                        foursquareError={this.state.foursquareError} />
+                        google={ this.props.google } 
+                        showingMuseums={ showingMuseums } 
+                        museumName={ this.state.museumName }
+                        getName={ this.getName } 
+                        foursquareError={ this.state.foursquareError }
+                        sidebarVisible={ this.state.sidebarVisible } />
                     </div>
                 </section>
                 <section className="map-window">
                     <div>
                         <MapContainer 
-                        google={this.props.google} 
-                        showingMuseums={showingMuseums} 
-                        clickedMuseum={clickedMuseum}
-                        foursquareError={this.state.foursquareError} />
+                        google={ this.props.google } 
+                        showingMuseums={ showingMuseums } 
+                        clickedMuseum={ clickedMuseum }
+                        foursquareError={ this.state.foursquareError } />
+                        <Info
+                        clickedMuseum={ clickedMuseum } />
                     </div>
                 </section>
             </main>
