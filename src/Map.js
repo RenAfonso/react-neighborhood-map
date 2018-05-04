@@ -38,10 +38,7 @@ class MapContainer extends Component {
             containerStyle={ {width: '100%', height: '84vh', position: 'relative'} }
             styles={ mapStyles }
             zoom={12}
-            initialCenter={{
-            lat : 38.7222524,
-            lng : -9.1393366
-            }}
+            center={(clickedMuseum) ? {lat: `${clickedMuseum[0].location.lat}`, lng: `${clickedMuseum[0].location.lng}`} : {lat : 38.7222524, lng : -9.1393366}}
             onClick={this.onMapClicked}>
                 {(clickedMuseum) ? 
                     (<Marker
@@ -49,6 +46,7 @@ class MapContainer extends Component {
                     title={ clickedMuseum[0].name }
                     location={ clickedMuseum[0].location.address}
                     position={{lat: `${clickedMuseum[0].location.lat}`, lng: `${clickedMuseum[0].location.lng}`}}
+                    animation={google.maps.Animation.BOUNCE}
                     onClick={this.onMarkerClick}/>) :
                     ((!foursquareError) ? (showingMuseums.map((museum, index) => 
                         <Marker
@@ -56,6 +54,7 @@ class MapContainer extends Component {
                         title={ museum.name }
                         location={ museum.location.address}
                         position={{lat: `${museum.location.lat}`, lng: `${museum.location.lng}`}}
+                        animation={google.maps.Animation.DROP}
                         onClick={this.onMarkerClick}/>
                         )) : console.log('Foursquare data missing. Markers not loaded'))
                 }
