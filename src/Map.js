@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker} from 'google-maps-react'
+import {Map, InfoWindow, Marker} from 'google-maps-react';
 import { mapStyles } from './mapStyles';
 import PropTypes from 'prop-types';
 
