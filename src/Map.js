@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker} from 'google-maps-react'
 import { mapStyles } from './mapStyles';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class MapContainer extends Component {
+
+    static propTypes = {
+        showingMuseums: PropTypes.array.isRequired,
+        foursquareError: PropTypes.bool.isRequired,
+        google: PropTypes.object.isRequired
+    }
     
     state = {
         showingInfoWindow: false,
@@ -37,8 +43,8 @@ class MapContainer extends Component {
             google={ google }
             containerStyle={ {width: '100%', height: '84vh', position: 'relative'} }
             styles={ mapStyles }
-            zoom={ (clickedMuseum) ? 15 : 13 }
-            center={ (clickedMuseum) ? {lat: `${clickedMuseum[0].location.lat}`, lng: `${clickedMuseum[0].location.lng}`} : {lat : 38.7222524, lng : -9.1593366} }
+            zoom={ (clickedMuseum) ? 15 : 12 }
+            center={ (clickedMuseum) ? {lat: `${clickedMuseum[0].location.lat}`, lng: `${clickedMuseum[0].location.lng}`} : {lat : 38.7222524, lng : -9.1493366} }
             onClick={ this.onMapClicked }>
                 { (clickedMuseum) ? 
                     (<Marker

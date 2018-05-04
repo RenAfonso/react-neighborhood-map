@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import {GoogleApiWrapper} from 'google-maps-react'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
-import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft'
-import MapContainer from './Map'
-import List from './List'
-import Info from './Info'
-import foursquare from './foursquare.svg'
+import React, { Component } from 'react';
+import {GoogleApiWrapper} from 'google-maps-react';
+import escapeRegExp from 'escape-string-regexp';
+import sortBy from 'sort-by';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
+import faArrowLeft from '@fortawesome/fontawesome-free-solid/faArrowLeft';
+import MapContainer from './Map';
+import List from './List';
+import Info from './Info';
+import foursquare from './foursquare.svg';
 import './App.css';
 
 class App extends Component {
@@ -35,7 +35,7 @@ class App extends Component {
     }
 
     getMuseums() {
-        fetch(`https://api.foursquare.com/v2/venues/search?ll=38.7222524,-9.1393366&client_id=DKAUJUD2JV421KQCJENSDWHWBVALP1QWWMF3KKKP1CDWPPKE&client_secret=FBBD413XCHSBJFX5D2DWZUTVYBVOOWLSVM3G3SWEOJQPRA35&v=20180323&categoryId=4bf58dd8d48988d181941735&radius=6000&limit=50`)
+        fetch(`https://api.foursquare.com/v2/venues/search?ll=38.7222524,-9.1493366&client_id=DKAUJUD2JV421KQCJENSDWHWBVALP1QWWMF3KKKP1CDWPPKE&client_secret=FBBD413XCHSBJFX5D2DWZUTVYBVOOWLSVM3G3SWEOJQPRA35&v=20180323&categoryId=4bf58dd8d48988d181941735&radius=6000&limit=50`)
         .then(response => response.json())
         .then(data => data.response.venues)
         .catch(err => {
@@ -97,14 +97,14 @@ class App extends Component {
         return (
         <div className="app">
             <header className="app-header">
-                <div
+                <button
                 className="app-search" 
                 id="app-search"
                 tabIndex="1"
                 aria-label={ sidebarVisible ? "back arrow" : "search icon" }
-                onClick={this.toggleSidebar}>
+                onClick={ this.toggleSidebar }>
                     <FontAwesomeIcon icon={ sidebarVisible ? faArrowLeft : faSearch }/>
-                </div>
+                </button>
                 <h1 className="app-title" tabIndex="-1">Lisbon Museums</h1>
             </header>
             <main className="main">
@@ -115,7 +115,7 @@ class App extends Component {
                         <input 
                         className="search-text" 
                         type="text" 
-                        placeholder="Search by museum name"
+                        placeholder="Search by museum"
                         tabIndex="1"
                         value={ this.state.query }
                         onClick={ () => this.updateMarker() }
@@ -125,8 +125,7 @@ class App extends Component {
                         showingMuseums={ showingMuseums } 
                         museumName={ this.state.museumName }
                         getName={ this.getName } 
-                        foursquareError={ this.state.foursquareError }
-                        sidebarVisible={ this.state.sidebarVisible } />
+                        foursquareError={ this.state.foursquareError } />
                     </div>
                 </section>
                 <section className="map-window">
