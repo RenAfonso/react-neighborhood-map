@@ -6,6 +6,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* header */
 .app-header {
   background-color: #000;
   height: 12vh;
@@ -41,6 +42,8 @@
     display: block;
 }
 
+
+/* sidebar including search bar */
 .sidebar {
     width: 500px;
     height: 84vh;
@@ -101,11 +104,13 @@
     border-top: solid 1px #000;
 }
 
+/* map window */
 .map-window {
     height: 100%;
     width: 100%;
 }
 
+/* banner with museum info */
 .list-info {
     bottom: -20vh;
     z-index: 2;
@@ -125,6 +130,7 @@
     transition: linear 0.2s;
 }
 
+/* footer */
 .footer {
     background-color: #000;
     width: 100%;
@@ -144,6 +150,7 @@
     height: 3vh;
 }
 
+/* transition from mobile to small tablets */
 @media screen and (min-width: 600px) {
     
     .app-header {
@@ -197,6 +204,7 @@
 
 }
 
+/* minor transition */
 @media screen and (min-width: 800px) {
 
     .museums-list-item {
@@ -204,6 +212,7 @@
     }
 }
 
+/* laptop transition */
 @media screen and (min-width: 1024px) {
 
     .app-title {
