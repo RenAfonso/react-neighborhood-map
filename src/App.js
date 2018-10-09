@@ -177,5 +177,5 @@ class App extends Component {
 
 // Personal google maps API key used as google-maps-react library suggests
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyCChB_hbF67MQWbbw44sjHvv0qgPaERIuQ'
+    apiKey: 'insert your key here'
   })(App)
