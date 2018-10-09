@@ -124,7 +124,7 @@ class App extends Component {
                     <FontAwesomeIcon icon={ sidebarVisible ? faArrowLeft : faSearch }/>
                 </button>
                 
-                <h1 className="app-title" tabIndex="-1">Lisbon's Museums</h1>
+                <h1 className="app-title" tabIndex="-1">Lisbon Museums</h1>
             </header>
 
             <main className="main">
